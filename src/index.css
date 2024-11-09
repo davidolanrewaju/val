@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
+
+body {
+  font-family: 'Dosis', sans-serif;
+  font-size: 16px;
+}
+
+.logo {
+  width: 50%;
+}
+
+.icon {
+  color: red;
+}
+
+.hover-link:hover {
+  color: red !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.booking-form {
+  width: 100%;
+  background-color: #ffffff;
+  font-size: 16px;
+  border: 1px solid #e1e1e1;
+  border-radius: 2px;
+  padding: 15px 20px;
+  font-weight: 400;
+  color: #b7b7b7;
+  transition-duration: 500ms;
+  display: block;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  outline: none;
+}
+
+.booking-form:focus {
+  box-shadow: none;
+  border-color: #f82827;
+}
+
+.map-area {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-border {
+  border: 2px solid transparent;
+  border-left-color: #ff0000;
+  animation: spin 1s linear infinite;
+}
+
+.spanText,
+.valgee-red {
+  color: #ff0000;
+}
+
+.bg-valgee-gray {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.bg-valgee-red {
+  background-color: #ff0000;
+}
+
+.padding-top {
+  padding-top: 140px;
+}
+
+.reschedule-padding {
+  padding-top: 160px;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+input,
+input::placeholder {
+  font-family: 'Dosis', sans-serif !important;
+  color: #b7b7b7;
+}
+
+.red-btn {
+  cursor: pointer;
+  transition-duration: 400ms;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  color: #ffffff;
+  background-color: #f82827;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  padding: 5px 45px;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 15px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.red-btn:hover {
+  border: 3px solid #f82827;
+  color: #f82827;
+  background-color: transparent;
+}
+
+.select-btn {
+  cursor: pointer;
+  padding: 0.3rem 0.9rem;
+  font-size: 1rem;
+  border-radius: 0.2rem;
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.selected-seat {
+  background-color: green;
+}
+
+.pay-now {
+  cursor: pointer;
+  background-color: #2cb94d;
+  outline: none;
+  color: white;
+  border: 2px solid #1d7c33;
+  border-radius: 5px;
+}
+
+.pay-now:hover {
+  background-color: #1f7e35;
+}
+
+.success-message {
+  background-color: #2cb94d;
+  border: 2px solid #26a543;
+  padding: 10px 20px;
+  color: white;
+  font-size: 18px;
+  border-radius: 10px;
+  margin: 30px 0;
+}
+
+.login-btn {
+  background-color: #2b2a2a;
+  color: white;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 600;
+  border: 3px solid transparent;
+  outline: none;
+  border-radius: 3px;
+  padding: 0.5rem 3rem;
+  transition: background 0.5s ease-out;
+}
+
+.login-btn:hover {
+  border: 3px solid #2b2a2a;
+  color: #2b2a2a;
+  background-color: transparent;
+}
+
+.login-input {
+  border: 1px solid #e6e4e4;
+  border-radius: 4px;
+  outline: none;
+  padding: 13px;
+}
+
+.login-input:focus {
+  border-color: #ff0000;
+}
+
+.input-label {
+  font-size: 18px;
+}
+
+.contact-btn {
+  background-color: #dc3545;
+  outline: none;
+  padding: 10px 0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.contact-btn:hover {
+  background-color: #c52d3c;
+}
+
+.contact-outline-btn {
+  border: 1px solid #dc3545;
+  padding: 10px 0;
+  color: #dc3545;
+  background-color: white;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.contact-outline-btn:hover {
+  border-color: transparent;
+  background-color: #c52d3c;
+  color: white;
+}
+
+.ticket-input {
+  background-color: transparent;
+  outline: none;
+  border-color: #e6e4e4;
+}
+
+.slide-animation {
+  animation: slideIn 3s ease-in-out forwards;
+}
+
+.custom-quill {
+  height: 150px;
+}
+
+.custom-quill .ql-container {
+  height: calc(100% - 42px);
+}
+
+.custom-quill .ql-editor {
+  height: 100%;
+}
+
+.textarea-bottom {
+  margin-top: 70px;
+}
+
+.conversation-view .ql-container {
+  border: none;
+}
+
+.conversation-view .ql-editor {
+  padding: 0;
+}
+
+.conversation-view .message .ql-editor {
+  min-height: auto;
+}
+
+.conversation-view .message p {
+  margin-bottom: 0.5rem;
+  border: none;
+}
+
+.conversation-view .message ul, .conversation-view .message ol {
+  padding-left: 1.5rem;
+}
+
+.conversation-view .message blockquote {
+  margin-left: 0;
+  padding-left: 0.5rem;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+
+.mini-nav {
+  font-size: 14px;
+}
+
+/* Small devices */
+@media (min-width: 576px) {
+  .mini-nav {
+    font-size: 15px;
+  }
+}
+
+/* Medium devices */
+@media (min-width: 768px) {
+  .mini-nav {
+    font-size: 16px;
+  }
+  .logo {
+    width: 35%;
+  }
+  .padding-top, .reschedule-padding {
+    padding-top: 200px;
+  }
+  .textarea-bottom {
+    margin-top: 50px;
+  }
+}
+
+/* Large devices */
+@media (min-width: 992px) {
+  .mini-nav {
+    font-size: 17px;
+  }
+  .logo {
+    width: 25%;
+  }
+  .textarea-bottom {
+    margin-top: 20px;
+  }
+  .reschedule-padding {
+    padding-top: 100px;
+  }
+}
+
+/* Extra large devices */
+@media (min-width: 1200px) {
+  .mini-nav {
+    font-size: 18px;
+  }
+  .logo {
+    width: 20%;
+  }
+}
