@@ -22,6 +22,7 @@ const BookingDetails = () => {
   const authLoading = useSelector((state) => state.authentication.loading);
   // const isAuthenticated = useSelector((state) => state.authentication.isAuthenticated);
   const authError = useSelector((state) => state.authentication.error);
+  const [error, setError] = useState(null);
 
   const [customerData, setCustomerData] = useState({
     trip_id: 0,
@@ -48,10 +49,46 @@ const BookingDetails = () => {
   const formattedDate = useFormatDate(tripDate, 'short');
 
   useEffect(() => {
-    if (location.state) {
-      dispatch(selectSeat(location.state));
-    }
+    const initializeBookingData = async () => {
+      try {
+        if (!location.state) {
+          setError('No booking data found. Please start your booking again.');
+          return;
+        }
+        const result = await dispatch(selectSeat(location.state)).unwrap();
+        if (!result) {
+          setError('Failed to load booking details. Please try again.');
+        }
+      } catch (err) {
+        setError('An error occurred while loading booking details. Please try again.');
+        console.error('Booking details error:', err);
+      }
+    };
+
+    initializeBookingData();
   }, [dispatch, location.state]);
+
+  if (error) {
+    return (
+      <div>
+        <NavigationBar />
+        <div className="container px-md-5 padding-top">
+          <h1 className="uppercase font-medium text-3xl mb-10">Error</h1>
+          <p className="text-danger">{error}</p>
+          <Button 
+            btnName="Return to Booking" 
+            className="login-btn mt-3"
+            onClick={() => navigate('/bookings')}
+          />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if ((loading || authLoading) && !error) {
+    return <Loader />;
+  }
 
   const passengerDetails = useMemo(() => {
     if (!data || !data.bookingIds) {
@@ -60,9 +97,6 @@ const BookingDetails = () => {
     return data.bookingIds.map((bookingId) => [bookingId, ...Object.values(passengerDetail)]);
   }, [data, passengerDetail]);
 
-  if (loading || authLoading) {
-    return <Loader />;
-  }
 
   if (!data || !data.bookings || data.bookings.length === 0) {
     return (
