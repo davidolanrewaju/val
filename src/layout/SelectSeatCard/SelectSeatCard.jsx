@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import useFormatDate from '../../hooks/useFormatDate';
 
@@ -9,6 +9,7 @@ import Error from '../../components/ErrorDisplays/Error';
 
 const SelectSeatCard = ({ seats, origin, destination }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedSeat, setSelectedSeat] = useState({
     amount: 0,
     noofseats: 0,
@@ -24,11 +25,15 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
     let timer;
     if (shouldRefresh) {
       timer = setTimeout(() => {
-        window.location.reload();
+        // Instead of reload(), navigate to the same route with the same state
+        navigate(location.pathname, {
+          state: location.state,
+          replace: true // This replaces the current entry in the history stack
+        });
       }, 1000);
     }
     return () => clearTimeout(timer);
-  }, [shouldRefresh]);
+  }, [shouldRefresh, navigate, location]);
 
   const handleSelectedSeat = (seatInfo) => {
     const requestedSeats = parseInt(seats.no_of_seats);
@@ -115,11 +120,11 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
                       of service
                     </label>
                   </div>
-                  <Button 
-                    disabled={selectedSeat.noofseats !== parseInt(seats.no_of_seats)} 
-                    btnName="Continue" 
-                    className="btn btn-secondary my-4 py-2 px-3" 
-                    style={{ backgroundColor: '#343A40' }} 
+                  <Button
+                    disabled={selectedSeat.noofseats !== parseInt(seats.no_of_seats)}
+                    btnName="Continue"
+                    className="btn btn-secondary my-4 py-2 px-3"
+                    style={{ backgroundColor: '#343A40' }}
                   />
                 </div>
               </div>
