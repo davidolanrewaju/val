@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,22 +16,24 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
     trip_id: 0,
   });
   const [seatError, setSeatError] = useState('');
-  const [hasError, setHasError] = useState(false);
+  const [shouldRefresh, setShouldRefresh] = useState(false);
   const tripDate = seats.trip.trip_date || null;
   const formatDate = useFormatDate(tripDate);
 
   useEffect(() => {
     let timer;
-    if (hasError) {
+    if (shouldRefresh) {
       timer = setTimeout(() => {
         window.location.reload();
       }, 1000);
     }
     return () => clearTimeout(timer);
-  }, [hasError]);
+  }, [shouldRefresh]);
 
   const handleSelectedSeat = (seatInfo) => {
-    const isValidSelection = seatInfo.no_of_seats === parseInt(seats.no_of_seats);
+    const requestedSeats = parseInt(seats.no_of_seats);
+    const selectedSeats = seatInfo.no_of_seats;
+
     setSelectedSeat((prevState) => ({
       ...prevState,
       seats: seatInfo.seats,
@@ -41,18 +42,23 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
       trip_id: seatInfo.trip_id,
     }));
 
-    if (!isValidSelection) {
-      setSeatError(`Please select exactly ${seats.no_of_seats} seat(s)`);
-      setHasError(true);
+    // Only trigger refresh if user selects MORE seats than allowed
+    if (selectedSeats > requestedSeats) {
+      setSeatError(`Please select exactly ${requestedSeats} seat(s)`);
+      setShouldRefresh(true);
     } else {
       setSeatError('');
-      setHasError(false);
+      setShouldRefresh(false);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate('/bookings/details', { state: selectedSeat });
+    if (selectedSeat.noofseats === parseInt(seats.no_of_seats)) {
+      navigate('/bookings/details', { state: selectedSeat });
+    } else {
+      setSeatError(`Please select exactly ${seats.no_of_seats} seat(s)`);
+    }
   };
 
   return (
@@ -109,7 +115,12 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
                       of service
                     </label>
                   </div>
-                  <Button disabled={selectedSeat.noofseats !== parseInt(seats.no_of_seats)} link="/bookings/details" btnName="Continue" className="btn btn-secondary my-4 py-2 px-3" style={{ backgroundColor: '#343A40' }} />
+                  <Button 
+                    disabled={selectedSeat.noofseats !== parseInt(seats.no_of_seats)} 
+                    btnName="Continue" 
+                    className="btn btn-secondary my-4 py-2 px-3" 
+                    style={{ backgroundColor: '#343A40' }} 
+                  />
                 </div>
               </div>
             </div>
