@@ -13,6 +13,7 @@ import CalendarInput from '../../components/Forms/CalendarInput';
 import { getVehicles } from '../../reducers/vehicle/vehicleSlice';
 import { getLocationsTo } from '../../reducers/location/locationToSlice';
 import { getLocationsFrom } from '../../reducers/location/locationFromSlice';
+import Loader from '../../components/Loader/Loader';
 
 const DirectBookingForm = () => {
   const navigate = useNavigate();

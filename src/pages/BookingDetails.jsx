@@ -19,10 +19,6 @@ const BookingDetails = () => {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.selectedSeat.loading);
   const data = useSelector((state) => state.selectedSeat.selectedSeats);
-  const authLoading = useSelector((state) => state.authentication.loading);
-  // const isAuthenticated = useSelector((state) => state.authentication.isAuthenticated);
-  const authError = useSelector((state) => state.authentication.error);
-  const [error, setError] = useState(null);
 
   const [customerData, setCustomerData] = useState({
     trip_id: 0,
@@ -46,49 +42,13 @@ const BookingDetails = () => {
   });
 
   const tripDate = data?.trip?.trip_date || null;
-  const formattedDate = useFormatDate(tripDate, 'short');
+  const formattedDate = useFormatDate(tripDate, 'long');
 
   useEffect(() => {
-    const initializeBookingData = async () => {
-      try {
-        if (!location.state) {
-          setError('No booking data found. Please start your booking again.');
-          return;
-        }
-        const result = await dispatch(selectSeat(location.state)).unwrap();
-        if (!result) {
-          setError('Failed to load booking details. Please try again.');
-        }
-      } catch (err) {
-        setError('An error occurred while loading booking details. Please try again.');
-        console.error('Booking details error:', err);
-      }
-    };
-
-    initializeBookingData();
+    if (location.state) {
+      dispatch(selectSeat(location.state));
+    }
   }, [dispatch, location.state]);
-
-  if (error) {
-    return (
-      <div>
-        <NavigationBar />
-        <div className="container px-md-5 padding-top">
-          <h1 className="uppercase font-medium text-3xl mb-10">Error</h1>
-          <p className="text-danger">{error}</p>
-          <Button 
-            btnName="Return to Booking" 
-            className="login-btn mt-3"
-            onClick={() => navigate('/bookings')}
-          />
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  if ((loading || authLoading) && !error) {
-    return <Loader />;
-  }
 
   const passengerDetails = useMemo(() => {
     if (!data || !data.bookingIds) {
@@ -97,18 +57,8 @@ const BookingDetails = () => {
     return data.bookingIds.map((bookingId) => [bookingId, ...Object.values(passengerDetail)]);
   }, [data, passengerDetail]);
 
-
-  if (!data || !data.bookings || data.bookings.length === 0) {
-    return (
-      <div>
-        <NavigationBar />
-        <div className="container px-md-5 padding-top">
-          <h1 className="uppercase font-medium text-3xl mb-10">Oops!!</h1>
-          <p>Something is not right, let&lsquo;s try again</p>
-        </div>
-        <Footer />
-      </div>
-    );
+  if (loading || !data || !data.bookings || !data.bookings[0]) {
+    return <Loader />;
   }
 
   const handlePassengerDataChange = (e) => {
@@ -146,7 +96,6 @@ const BookingDetails = () => {
 
     try {
       const signupResult = await dispatch(signup(signupData)).unwrap();
-      console.log('Signup successful:', signupResult);
       if (signupResult.token) {
         const loginCredentials = {
           email: customerData.email,
@@ -172,80 +121,79 @@ const BookingDetails = () => {
   };
 
   return (
-    <div className="booking-details">
+    <div className='booking-details'>
       <NavigationBar />
-      <div className="container px-md-5 padding-top">
-        <h1 className="text-uppercase fs-2 fw-medium" style={{ marginBottom: '40px' }}>
+      <div className='container px-md-5 padding-top'>
+        <h1 className='text-uppercase fs-2 fw-medium' style={{ marginBottom: '40px' }}>
           Passenger Details
         </h1>
-        <div className="row mt-4">
-          <div className="col-lg-6">
-            <div className="bg-white shadow p-3 text-secondary">
-              <div className="mb-5">
-                <div className="mt-3 py-2 px-3 border-top border-bottom row" style={{ backgroundColor: 'rgba(112, 112, 112, 0.07)' }}>
-                  <p className="fw-semibold col-6">Route</p>
-                  <p className="col-6">
+        <div className='row mt-4'>
+          <div className='col-lg-6'>
+            <div className='bg-white shadow p-3 text-secondary'>
+              <div className='mb-5'>
+                <div className='mt-3 py-2 px-3 border-top border-bottom row' style={{ backgroundColor: 'rgba(112, 112, 112, 0.07)' }}>
+                  <p className='fw-semibold col-6'>Route</p>
+                  <p className='col-6'>
                     : {data.bookings[0].route} [{data.bookings[0].trip.capacity} Seater]
                   </p>
                 </div>
-                <div className="py-2 px-3 row">
-                  <p className="fw-semibold col-6">Date & Time</p>
-                  <p className="col-6">
+                <div className='py-2 px-3 row'>
+                  <p className='fw-semibold col-6'>Date & Time</p>
+                  <p className='col-6'>
                     : {formattedDate}
-                    <span className="text-danger"> {data.bookings[0].trip.trip_time}</span>
+                    <span className='text-danger'> {data.bookings[0].trip.trip_time}</span>
                   </p>
                 </div>
-                <div className="py-2 px-3 border-top border-bottom row" style={{ backgroundColor: 'rgba(112, 112, 112, 0.07)' }}>
-                  <p className="fw-semibold col-6">Amount</p>
-                  <p className="col-6">: &#8358;{data.bookings[0].trip.amount} for 1 seat</p>
+                <div className='py-2 px-3 border-top border-bottom row' style={{ backgroundColor: 'rgba(112, 112, 112, 0.07)' }}>
+                  <p className='fw-semibold col-6'>Amount</p>
+                  <p className='col-6'>: &#8358;{data.bookings[0].trip.amount} for 1 seat</p>
                 </div>
               </div>
 
               <hr />
 
-              <h3 className="my-3 fs-4 fw-medium">Seat {data.bookings[0].seat_number}</h3>
+              <h3 className='my-3 fs-4 fw-medium'>Seat {data.bookings[0].seat_number}</h3>
 
               <form onSubmit={handleSubmit}>
-                <div className="row mb-5">
-                  <div className="col-lg-8 col-md-12 mb-3 mb-md-0">
-                    <TextInput label="Full Name" span="(As it appears on ID Card)" className="booking-form" spanClassName="spanText" type="text" name="name" onChange={handleCustomerDataChange} required />
+                <div className='row mb-5'>
+                  <div className='col-lg-8 col-md-12 mb-3 mb-md-0'>
+                    <TextInput label='Full Name' span='(As it appears on ID Card)' className='booking-form' spanClassName='spanText' type='text' name='name' onChange={handleCustomerDataChange} required />
                   </div>
-                  <div className="col-lg-4 col-md-12 mt-4 mt-lg-0">
-                    <SelectInput name="gender" label="Gender" className="booking-form" onChange={handlePassengerDataChange} required>
-                      <option value="">-Select Gender-</option>
-                      <option value="M">Male</option>
-                      <option value="F">Female</option>
+                  <div className='col-lg-4 col-md-12 mt-4 mt-lg-0'>
+                    <SelectInput name='gender' label='Gender' className='booking-form' onChange={handlePassengerDataChange} required>
+                      <option value=''>-Select Gender-</option>
+                      <option value='M'>Male</option>
+                      <option value='F'>Female</option>
                     </SelectInput>
                   </div>
                 </div>
 
                 <hr />
 
-                <div className="row mt-3">
-                  <div className="col-12 col-lg-6 mb-3 mb-md-0">
-                    <TextInput label="Email" containerClassName="" className="booking-form" type="email" name="email" onChange={handleCustomerDataChange} required />
+                <div className='row mt-3'>
+                  <div className='col-12 col-lg-6 mb-3 mb-md-0'>
+                    <TextInput label='Email' containerClassName='' className='booking-form' type='email' name='email' onChange={handleCustomerDataChange} required />
                   </div>
-                  <div className="col-12 col-lg-6">
-                    <TextInput label="Phone" containerClassName="" className="booking-form" type="tel" name="phone" onChange={handleCustomerDataChange} required />
-                  </div>
-                </div>
-                <div className="row mt-3">
-                  <div className="col-12 col-lg-6 mb-3 mb-md-0">
-                    <TextInput label="Next of Kin" containerClassName="" className="booking-form" type="text" name="nok_name" onChange={handleCustomerDataChange} required />
-                  </div>
-                  <div className="col-12 col-lg-6">
-                    <TextInput label="Next of Kin Phone" containerClassName="" className="booking-form" type="tel" name="nok_phone" onChange={handleCustomerDataChange} required />
+                  <div className='col-12 col-lg-6'>
+                    <TextInput label='Phone' containerClassName='' className='booking-form' type='tel' name='phone' onChange={handleCustomerDataChange} required />
                   </div>
                 </div>
-                {authError && <div className="text-danger mt-3">{authError}</div>}
-                <div className="text-end">
-                  <Button btnName="Continue" className="login-btn mt-5 mb-3" />
+                <div className='row mt-3'>
+                  <div className='col-12 col-lg-6 mb-3 mb-md-0'>
+                    <TextInput label='Next of Kin' containerClassName='' className='booking-form' type='text' name='nok_name' onChange={handleCustomerDataChange} required />
+                  </div>
+                  <div className='col-12 col-lg-6'>
+                    <TextInput label='Next of Kin Phone' containerClassName='' className='booking-form' type='tel' name='nok_phone' onChange={handleCustomerDataChange} required />
+                  </div>
+                </div>
+                <div className='text-end'>
+                  <Button btnName='Continue' className='login-btn mt-5 mb-3' />
                 </div>
               </form>
             </div>
           </div>
-          <div className="col-lg-6">
-            <img className="img-fluid" src="/assets/images/payment.png" alt="payment" />
+          <div className='col-lg-6'>
+            <img className='img-fluid' src='/assets/images/payment.png' alt='payment' />
           </div>
         </div>
       </div>

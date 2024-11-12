@@ -13,7 +13,7 @@ export const selectSeat = createAsyncThunk('selectedSeat/postSelectedSeat', asyn
   const seatData = { ...seatInfo };
   console.log(seatData);
   const response = await axios.post(`${API}/bookings/process-booking-seat`, seatData);
-
+  console.log(response.data);
   return response.data;
 });
 
