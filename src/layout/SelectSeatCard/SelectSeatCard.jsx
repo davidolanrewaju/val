@@ -106,7 +106,7 @@ const SelectSeatCard = ({ seats, origin, destination }) => {
                   </div>
                 )}
 
-                <div className="m-2 text-center p-1 p-md-5">
+                <div className="m-2 text-center p-3 p-md-5">
                   <Seats updatedData={seats} trip_type={seats.trip.trip_type} handleSelectedSeat={handleSelectedSeat} />
 
                   <Error className="text-danger fw-medium" message={seatError} />
