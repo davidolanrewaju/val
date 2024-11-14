@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,7 +7,7 @@ import Button from '../components/Button/Button';
 import TextInput from '../components/Forms/TextInput';
 import NavigationBar from '../layout/Navbar/NavigationBar';
 
-import { login } from '../reducers/authentication/authenticationSlice';
+import { login, resetAuthState } from '../reducers/authentication/authenticationSlice';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,10 @@ const Login = () => {
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    dispatch(resetAuthState());
+  }, [dispatch]);
 
   const handleCredentials = (e) => {
     const { name, value } = e.target;
@@ -35,27 +39,27 @@ const Login = () => {
   return (
     <div>
       <NavigationBar />
-      <div className="container px-md-5 padding-top">
-        <div className="row align-items-center justify-content-between">
-          <div className="col-12 col-lg-5">
+      <div className='container px-md-5 padding-top'>
+        <div className='row align-items-center justify-content-between'>
+          <div className='col-12 col-lg-5'>
             <div>
-              <h2 className="mb-2 mb-md-5 text-uppercase fw-medium">Login</h2>
-              <form className="row w-100" onSubmit={handleLogin} style={{ marginBottom: '20px' }}>
-                <TextInput label="Email:" labelClassName="input-label" containerClassName="col-12 col-lg-8 d-flex flex-column mb-4" className="login-input" type="email" name="email" value={credentials.email} onChange={handleCredentials} required />
+              <h2 className='mb-2 mb-md-5 text-uppercase fw-medium'>Login</h2>
+              <form className='row w-100' onSubmit={handleLogin} style={{ marginBottom: '20px' }}>
+                <TextInput label='Email:' labelClassName='input-label' containerClassName='col-12 col-lg-8 d-flex flex-column mb-4' className='login-input' type='email' name='email' value={credentials.email} onChange={handleCredentials} required />
 
-                <TextInput label="Password:" labelClassName="input-label" containerClassName="col-12 col-lg-8 d-flex flex-column" className="login-input" type="password" name="password" value={credentials.password} onChange={handleCredentials} required />
+                <TextInput label='Password:' labelClassName='input-label' containerClassName='col-12 col-lg-8 d-flex flex-column' className='login-input' type='password' name='password' value={credentials.password} onChange={handleCredentials} required />
 
-                {error && <p className="text-danger mb-0">{error}</p>}
+                {error && error !== 'unAuthenticated' && <p className='text-danger mb-0'>{error}</p>}
 
-                <Button containerClassName="mt-4 w-75" btnName={loading ? 'Logging in...' : 'Login'} className="login-btn fw-semibold" disabled={loading} />
+                <Button containerClassName='mt-4 w-75' btnName={loading ? 'Logging in...' : 'Login'} className='login-btn fw-semibold' disabled={loading} />
               </form>
             </div>
-            <div className="d-flex align-items-center gap-2 mb-5">
-              <a className="fw-medium cursor-pointer text-decoration-none" style={{ color: '#28A745', fontSize: '16px' }} onClick={() => navigate('/forgot-password')}>
+            <div className='d-flex align-items-center gap-2 mb-5'>
+              <a className='fw-medium cursor-pointer text-decoration-none' style={{ color: '#28A745', fontSize: '16px' }} onClick={() => navigate('/forgot-password')}>
                 Forgot your password?
               </a>
-              <p className="mb-0">|</p>
-              <a className="fw-medium text-primary text-decoration-none cursor-pointer" style={{ fontSize: '16px' }} href="https://valgee.com/register">
+              <p className='mb-0'>|</p>
+              <a className='fw-medium text-primary text-decoration-none cursor-pointer' style={{ fontSize: '16px' }} href=''>
                 Create New Account
               </a>
             </div>
@@ -76,8 +80,8 @@ const Login = () => {
               </div>
             </button> */}
           </div>
-          <div className="col-12 col-lg-6 container d-flex align-items-center justify-content-center" style={{ marginBottom: '100px' }}>
-            <img className="img-fluid shadow-lg" src="/assets/images/slide-img3.jpg" alt="Login background" />
+          <div className='col-12 col-lg-6 container d-flex align-items-center justify-content-center' style={{ marginBottom: '100px' }}>
+            <img className='img-fluid shadow-lg' src='/assets/images/slide-img3.jpg' alt='Login background' />
           </div>
         </div>
       </div>

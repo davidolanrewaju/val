@@ -19,6 +19,7 @@ const BookingDetails = () => {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.selectedSeat.loading);
   const data = useSelector((state) => state.selectedSeat.selectedSeats);
+  const authError = useSelector((state) => state.authentication.error);
 
   const [customerData, setCustomerData] = useState({
     trip_id: 0,
@@ -186,6 +187,13 @@ const BookingDetails = () => {
                     <TextInput label='Next of Kin Phone' containerClassName='' className='booking-form' type='tel' name='nok_phone' onChange={handleCustomerDataChange} required />
                   </div>
                 </div>
+
+                {authError && (
+                  <div className='text-danger' role='alert'>
+                    {authError}
+                  </div>
+                )}
+
                 <div className='text-end'>
                   <Button btnName='Continue' className='login-btn mt-5 mb-3' />
                 </div>
