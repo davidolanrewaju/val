@@ -120,6 +120,7 @@ const BookingDetails = () => {
       }
     }
   };
+  
   return (
     <div className='booking-details'>
       <NavigationBar />
