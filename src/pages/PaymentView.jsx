@@ -32,6 +32,8 @@ const PaymentView = () => {
     }
   }, [dispatch, customerData]);
 
+  console.log(customerData);
+
   useEffect(() => {
     setIsPayButtonDisabled(paymentOption === '');
   }, [paymentOption]);
@@ -117,10 +119,10 @@ const PaymentView = () => {
     <>
       <NavigationBar />
       <div className="container px-md-5 padding-top">
-        <div className="row justify-content-center">
+        <div className="row justify-content-center" style={{ marginTop: '50px'}}>
           <div className="col-12 col-lg-6 text-center">
             <h2 className="pb-4 text-uppercase">Make Payment</h2>
-            <div className="bg-light p-3 shadow">
+            <div className="p-2 shadow" style={{ backgroundColor: 'rgba(0, 0, 0, 0.07)' }}>
               <img className="img-fluid shadow" src="/assets/images/luggage.jpg" alt="" />
             </div>
           </div>
@@ -129,9 +131,9 @@ const PaymentView = () => {
           <div className="bg-white pt-4 px-1">
             <div className="bg-light py-4 border-top border-bottom" style={{ backgroundColor: 'rgba(112, 112, 112, 0.07)' }}>
               {origin && destination && (
-                <h3 className="mb-3 fw-medium">
+                <h1 className="mb-3 fw-medium">
                   {origin.location} ({origin.name}) to {destination.location} ({destination.name})
-                </h3>
+                </h1>
               )}
               <p className="mb-0" style={{ color: '#28A745', fontSize: '20px' }}>
                 {customerData.trip.trip_type.split(' ')[0]} Seater
@@ -144,18 +146,18 @@ const PaymentView = () => {
             </div>
             <div className="bg-light py-3 border-top border-bottom">
               <h4 className="fw-medium text-secondary">Passenger:</h4>
-              <p>{customerData.customerDetails.passengers[0][1]}</p>
+              <p className='m-0'>{customerData.customerDetails.name}</p>
             </div>
             <div className="py-3">
               <h4 className="fw-medium text-secondary">Amount To Pay:</h4>
-              <p className="text-secondary">
-                ₦{customerData.amount} for {customerData.no_of_seats} seat
+              <p className="text-secondary m-0">
+                ₦{customerData.amount} for {customerData.customerDetails.noofseats} seat
               </p>
             </div>
 
-            <div className="py-3 bg-light border-top">
-              <h4 className="fw-medium text-secondary">Select Payment Method:</h4>
-              <div className="col-md-8 mx-auto py-2">
+            <div className="py-3 px-4 bg-light border-top">
+              <p className="fw-bold text-secondary m-0">Select Payment Method:</p>
+              <div className="col-md-8 mx-auto">
                 <SelectInput name="paymentMethod" containerClassName="mb-3" className="form-select text-secondary" onChange={handlePaymentOptionChange} value={paymentOption}>
                   <option value="">- Select -</option>
                   <option value="paystack">Pay with Paystack (Card or USSD)</option>
