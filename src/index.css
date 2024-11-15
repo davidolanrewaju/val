@@ -211,8 +211,8 @@ input::placeholder {
 }
 
 .login-btn:hover {
-  border: 3px solid #2b2a2a;
-  color: #2b2a2a;
+  border: 3px solid #ff0000;
+  color: #ff0000;
   background-color: transparent;
 }
 
@@ -303,7 +303,8 @@ input::placeholder {
   border: none;
 }
 
-.conversation-view .message ul, .conversation-view .message ol {
+.conversation-view .message ul,
+.conversation-view .message ol {
   padding-left: 1.5rem;
 }
 
@@ -353,7 +354,8 @@ input::placeholder {
   .logo {
     width: 35%;
   }
-  .padding-top, .reschedule-padding {
+  .padding-top,
+  .reschedule-padding {
     padding-top: 200px;
   }
   .textarea-bottom {

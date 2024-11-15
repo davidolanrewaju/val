@@ -112,6 +112,23 @@ const authenticationSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+      .addCase(contactLogin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(contactLogin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.userDetails = action.payload.data;
+        state.token = action.payload.token;
+        updateAuthToken(action.payload.token);
+        setTokenWithExpiration(action.payload.token, action.payload.data);
+        state.error = null;
+      })
+      .addCase(contactLogin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
       .addCase(logout.fulfilled, () => {
         updateAuthToken(null);
         localStorage.removeItem('authToken');

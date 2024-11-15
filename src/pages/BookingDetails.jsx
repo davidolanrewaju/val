@@ -11,7 +11,7 @@ import SelectInput from '../components/Forms/SelectInput';
 import NavigationBar from '../layout/Navbar/NavigationBar';
 
 import { selectSeat } from '../reducers/selectedSeat/selectedSeatSlice';
-import { signup, contactLogin, login } from '../reducers/authentication/authenticationSlice';
+import { signup, contactLogin } from '../reducers/authentication/authenticationSlice';
 
 const BookingDetails = () => {
   const location = useLocation();
@@ -84,7 +84,6 @@ const BookingDetails = () => {
       passengers: [...passengerDetails],
     }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const signupData = {
@@ -121,7 +120,6 @@ const BookingDetails = () => {
       }
     }
   };
-
   return (
     <div className='booking-details'>
       <NavigationBar />
