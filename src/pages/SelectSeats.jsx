@@ -43,11 +43,11 @@ const SelectSeats = () => {
     <div>
       <NavigationBar />
       <div className="container pb-5 padding-top">
-        <div className="row justify-content-center">
+        <div className="row justify-content-center" style={{ marginTop: '50px' }}>
           <div className="container" style={{ marginLeft: '32px', marginRight: '32px' }}>
             <div className="row align-items-center justify-content-between">
               <div className="col-12 col-lg-6 offset-lg-3">
-                <h3 className="fw-medium text-center" style={{ marginBottom: '40px' }}>Select {seats.no_of_seats} Seat(s)</h3>
+                <h1 className="fw-medium text-center" style={{ marginBottom: '20px', fontSize: '28px' }}>Select {seats.no_of_seats} Seat(s)</h1>
                 <SelectSeatCard seats={seats} origin={origin} destination={destination} />
               </div>
             </div>

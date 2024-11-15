@@ -61,7 +61,7 @@ const NavigationBar = () => {
           <div className='container px-md-5 py-2'>
             <div className='row justify-content-between align-items-center'>
               <div className='col-6 col-md-auto'>
-                <div className='d-flex align-items-center'>
+                <div className='d-flex align-items-center gap-4 gap-md-0'>
                   <div className='d-flex align-items-center me-md-4'>
                     <FaRegEnvelope className='valgee-red me-2' />
                     <span className='small d-none d-md-block'>valgeetransportservices@gmail.com</span>

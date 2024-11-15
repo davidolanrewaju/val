@@ -23,11 +23,11 @@ const DirectBookingForm = () => {
   const locationsFrom = useSelector((state) => state.locationFrom.locationsFrom.data);
 
   const [formData, setFormData] = useState({
-    date: new Date().toISOString().split('T')[0], // default to today's date in "yyyy-MM-dd" format
+    date: '',
     no_of_seats: 1,
     origin: 0,
     destination: 0,
-    type: 'regular',
+    type: '',
   });
   const [error, setError] = useState({
     locationErr: '',

@@ -40,6 +40,28 @@ body {
   border-color: #f82827;
 }
 
+.detail-form {
+  width: 100%;
+  background-color: #ffffff;
+  font-size: 16px;
+  border: 1px solid #e1e1e1;
+  border-radius: 2px;
+  padding: 5px 10px;
+  font-weight: 400;
+  color: #b7b7b7;
+  transition-duration: 500ms;
+  display: block;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  outline: none;
+}
+
+.detail-form:focus {
+  box-shadow: none;
+  border-color: #f82827;
+}
+
 .map-area {
   position: relative;
   z-index: 2;
@@ -66,6 +88,10 @@ body {
   color: #ff0000;
 }
 
+.spanText {
+  font-size: 14px;
+}
+
 .bg-valgee-gray {
   background-color: rgba(0, 0, 0, 0.1);
 }
@@ -75,7 +101,7 @@ body {
 }
 
 .padding-top {
-  padding-top: 140px;
+  padding-top: 200px;
 }
 
 .reschedule-padding {
@@ -172,7 +198,7 @@ input::placeholder {
 }
 
 .login-btn {
-  background-color: #2b2a2a;
+  background-color: #ff0000;
   color: white;
   text-transform: uppercase;
   font-size: 18px;
