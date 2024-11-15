@@ -25,7 +25,7 @@ const TwelveSeater = ({ handleSelectedSeat, updatedData }) => {
   };
 
   return (
-    <div className="twelve-seater container d-flex flex-column border border-dark rounded-top">
+    <div className="twelve-seater px-2 pt-2 d-flex flex-column gap-2 border border-dark rounded-top-4">
       <Row seats={[updatedData.seats[0]]} selectedSeats={selectedSeats} onSeatClick={handleSelectClick} includeDriverSeat includeEmptySeatBefore />
       <Row seats={[updatedData.seats[1], updatedData.seats[2]]} selectedSeats={selectedSeats} onSeatClick={handleSelectClick} includeEmptySeatAfter />
       <Row seats={[updatedData.seats[3], updatedData.seats[4], updatedData.seats[5]]} selectedSeats={selectedSeats} onSeatClick={handleSelectClick} />

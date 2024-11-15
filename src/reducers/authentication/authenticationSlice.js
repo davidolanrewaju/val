@@ -25,6 +25,7 @@ const createAuthThunk = (name, endpoint, useAuth = false) =>
   });
 
 export const login = createAuthThunk('login', '/login');
+export const contactLogin = createAuthThunk('contactLogin', '/contact-login');
 export const signup = createAuthThunk('signup', '/signUp');
 export const logout = createAuthThunk('logout', '/logout', true);
 export const forgotPassword = createAuthThunk('forgotPassword', '/forgot-password');

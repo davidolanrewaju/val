@@ -25,7 +25,7 @@ const FiveSeater = ({ handleSelectedSeat, updatedData }) => {
   };
 
   return (
-    <div className="five-seater d-flex flex-column border border-dark" style={{ borderTopLeftRadius: '30px', borderTopRightRadius: '30px' }}>
+    <div className="five-seater px-2 pt-2 d-flex flex-column gap-2 border border-dark rounded-top-4">
       <Row seats={[updatedData.seats[0]]} selectedSeats={selectedSeats} onSeatClick={handleSelectClick} includeDriverSeat />
       <Row seats={[updatedData.seats[1], updatedData.seats[2]]} selectedSeats={selectedSeats} onSeatClick={handleSelectClick} />
       <Row seats={[updatedData.seats[3], updatedData.seats[4]]} selectedSeats={selectedSeats} onSeatClick={handleSelectClick} />

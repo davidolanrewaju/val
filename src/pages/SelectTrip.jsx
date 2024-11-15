@@ -69,10 +69,10 @@ const groupedVehicles = tripList.reduce((acc, trip) => {
     <>
       <NavigationBar />
       <div className="container px-md-5 pb-5 padding-top">
-        <div className="mb-5">
-          <h6 style={{ color: '#303030', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Available Trips</h6>
-          <h2 style={{ color: '#303030', fontSize: '30px', textTransform: 'uppercase' }}>
-            {metaData.origin.location} ({metaData.origin.name}) to {metaData.destination.location} ({metaData.destination.name})
+        <div className="mb-5" style={{marginTop: '50px'}}>
+          <h6 style={{ color: '#000000', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Available Trips</h6>
+          <h2 style={{ color: '#000000', fontSize: '25px', textTransform: 'uppercase' }}>
+            {metaData.origin.name} ({metaData.origin.location}) to {metaData.destination.name} ({metaData.destination.location})
           </h2>
           <h2 style={{ color: '#28a745', textTransform: 'uppercase', marginTop: '0.25rem', marginBottom: '0.5rem', fontWeight: '500', fontSize: '1.25rem' }}>{tripList[0].trip_type} Trip</h2>
           <p style={{ marginBottom: '1rem' }}>

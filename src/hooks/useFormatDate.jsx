@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const useFormatDate = (inputDate, format = 'full') => {
+const useFormatDate = (inputDate, format = 'full', monthFormat = 'short') => {
   const formatDate = useCallback((inputDate, format) => {
     const date = new Date(inputDate);
 
@@ -16,19 +16,19 @@ const useFormatDate = (inputDate, format = 'full') => {
 
     if (format === 'short') {
       const day = date.getDate();
-      const month = date.toLocaleString('default', { month: 'long' });
+      const month = date.toLocaleString('default', { month: monthFormat !== 'long' ? 'short' : 'long' });
       const year = date.getFullYear();
       return `${day} ${month} ${year}`;
     } else if (format === 'full') {
       const weekday = date.toLocaleDateString('default', { weekday: 'short' });
       const day = date.toLocaleDateString('default', { day: 'numeric' });
-      const month = date.toLocaleString('default', { month: 'long' });
+      const month = date.toLocaleString('default', { month: monthFormat !== 'long' ? 'short' : 'long' });
       const year = date.getFullYear();
       return `${weekday} ${day} ${month} ${year}`;
     } else if (format === 'with-time') {
       // const weekday = date.toLocaleDateString('default', {weekday: 'short'});
       const day = date.toLocaleDateString('default', { day: 'numeric' });
-      const month = date.toLocaleString('default', { month: 'long' });
+      const month = date.toLocaleString('default', { month: monthFormat !== 'long' ? 'short' : 'long' });
       const year = date.getFullYear();
       const time = formatTime(date);
       return `${day} ${month} ${year}, ${time}`;
